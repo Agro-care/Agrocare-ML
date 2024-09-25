@@ -1,7 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from crop_prediction import predict_crop, create_dataframe
-
+from CropRecommendationAPI.crop_prediction import predict_crop, create_dataframe
 # Constants for error messages
 ERROR_MESSAGES = {
     'not_post': 'not using POST request',
@@ -28,6 +27,6 @@ def crop_recommendation_predict(request: HttpResponse) -> JsonResponse:
         # return prediction result as json response
         return JsonResponse({'error': 'false', 'prediction': prediction_result}, status=200)
     except ValueError as ve:
-        return JsonResponse({'error': 'true', 'message': ERROR_MESSAGES['invalid_input']}, status=400)
+        return JsonResponse({'error': 'true', 'message': f"{ERROR_MESSAGES['invalid_input']} {ve}"}, status=400)
     except Exception as e:
         return JsonResponse({'error': 'true', 'message': str(e)}, status=500)
