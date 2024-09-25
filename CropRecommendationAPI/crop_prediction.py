@@ -8,8 +8,10 @@ import json
 # input: json data containing the crop parameters
 # output: predicted crop name
 def predict_crop(data: pd.DataFrame) -> str:
-    # get the working directory
-    model_path = Path.cwd() / 'CropRecommendationAPI' / 'ML-models' / 'crop_recommendation_random_forest.joblib'
+    # get the root directory of the project
+    root_dir = Path(__file__).resolve().parents[2]
+    # get the path of the model file
+    model_path = root_dir / "MLModels" / "crop_recommendation_random_forest.joblib"
 
     # load the model
     if not model_path.is_file():
