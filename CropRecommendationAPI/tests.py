@@ -1,3 +1,7 @@
 from django.test import TestCase
 
-# Create your tests here.
+
+# # create testcase for CropRecommendationAPI
+# class CropRecommendationAPITestCase(TestCase):
+#     def test_crop_recommendation_api(self):
+#         self.assertEqual(1, 1)
