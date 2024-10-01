@@ -22,4 +22,5 @@ from CropRecommendationAPI import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('CropRecommendationAPI.urls')),
+    path("api/", include(FRSAPI.urls)),
 ]
