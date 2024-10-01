@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from CropRecommendationAPI import views
-
+from FRSAPI import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('CropRecommendationAPI.urls')),
+    path("api/", include('FRSAPI.urls')),
 ]
