@@ -1,6 +1,11 @@
 asgiref==3.8.1
-Django==5.1.1
+Django
 gunicorn==23.0.0
 packaging==24.1
 psycopg2-binary==2.9.9
 sqlparse==0.5.1
+pandas
+scikit-learn==1.2.2
+Babel==2.15.0
+bleach==6.1.0
+python-dateutil==2.9.0.post0

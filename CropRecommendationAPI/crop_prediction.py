@@ -8,13 +8,15 @@ import json
 # input: json data containing the crop parameters
 # output: predicted crop name
 def predict_crop(data: pd.DataFrame) -> str:
-    # get the working directory
-    model_path = Path.cwd() / 'CropRecommendationAPI' / 'ML-models' / 'crop_recommendation_random_forest.joblib'
+    # get the path of the model file
+    # /root/Agrocare-ML/MLModels/crop_recommendation_random_forest.joblib
+    model_path = "/root/Agrocare-ML/MLModels/crop_recommendation_random_forest.joblib"
 
     # load the model
-    if not model_path.is_file():
+    try:
+        model = joblib.load(model_path)
+    except FileNotFoundError:
         raise FileNotFoundError("Model file not found.")
-    model = joblib.load(model_path)
 
     # predict the crop
     prediction = model.predict(data)[0]
