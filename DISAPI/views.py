@@ -1,3 +1,37 @@
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from DISAPI.disease_prediction import predict_diseases
+# Constants for error messages
+ERROR_MESSAGES = {
+    'not_post': 'not using POST request',
+    'invalid_content_type': 'Content type must be application/json',
+    'invalid_input': 'Invalid input data',
+    'no_photo': 'Photo is required'
+}
 
-# Create your views here.
+
+# API endpoint for crop recommendation prediction
+@csrf_exempt
+def disease_identification_predict(request: HttpResponse) -> JsonResponse:
+    if request.method != "POST":
+        return JsonResponse({'error': 'true', 'message': ERROR_MESSAGES['not_post']}, status=400)
+    # try catch block to handle IntegrityError
+    try:
+        # check if content type is application/json
+        if request.content_type != 'multipart/form-data':
+            return JsonResponse({'error': 'true', 'message': ERROR_MESSAGES['invalid_content_type']}, status=400)
+        # convert request.body to dataframe format for prediction
+        photo = request.FILES.get('file')
+        # check if picture is not empty
+        if not photo:
+            return JsonResponse({'error': 'true', 'message': ERROR_MESSAGES['no_photo']}, status=400)
+        else:
+            return JsonResponse({'error': 'false', 'message': 'Got Photo'}, status=200)
+        # predict disease using predict_disease function
+
+        # return prediction result as json response
+        # return JsonResponse({'error': 'false', 'prediction': prediction_result}, status=200)
+    except ValueError as ve:
+        return JsonResponse({'error': 'true', 'message': f"{ERROR_MESSAGES['invalid_input']} {ve}"}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': 'true', 'message': str(e)}, status=500)

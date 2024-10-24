@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'FRSAPI',
     'corsheaders',
-    'CropRecommendationAPI',
+    'FRSAPI',
+    'CRSAPI',
+    'DISAPI',
 ]
 
 MIDDLEWARE = [

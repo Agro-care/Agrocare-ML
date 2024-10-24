@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from CropRecommendationAPI.crop_prediction import predict_crop, create_dataframe
+from CRSAPI.crop_prediction import predict_crop, create_dataframe
 # Constants for error messages
 ERROR_MESSAGES = {
     'not_post': 'not using POST request',
