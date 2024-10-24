@@ -10,11 +10,18 @@ sencoder = load("/root/Agrocare-ML/MLModels/soil_encoder.joblib")
 cencoder = load("/root/Agrocare-ML/MLModels/crop_encoder.joblib")
 fencoder = load("/root/Agrocare-ML/MLModels/fer_encoder.joblib")
 
+ERROR_MESSAGES = {
+    'not_post': 'not using POST request',
+    'invalid_content_type': 'Content type must be application/json',
+    'invalid_input': 'Invalid input data'
+}
+
 @csrf_exempt
 def predictor(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            print(data)
             recieved = data["data"]
             temp = int(recieved['temperature'])
             soil = recieved["soil"]
