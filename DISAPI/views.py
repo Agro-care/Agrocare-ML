@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from DISAPI.disease_prediction import predict_diseases
+from DISAPI.disease_prediction import predict_disease
 # Constants for error messages
 ERROR_MESSAGES = {
     'not_post': 'not using POST request',
@@ -10,7 +10,7 @@ ERROR_MESSAGES = {
 }
 
 
-# API endpoint for crop recommendation prediction
+# API endpoint for disease identification prediction
 @csrf_exempt
 def disease_identification_predict(request: HttpResponse) -> JsonResponse:
     if request.method != "POST":
@@ -25,12 +25,10 @@ def disease_identification_predict(request: HttpResponse) -> JsonResponse:
         # check if picture is not empty
         if not photo:
             return JsonResponse({'error': 'true', 'message': ERROR_MESSAGES['no_photo']}, status=400)
-        else:
-            return JsonResponse({'error': 'false', 'message': 'Got Photo'}, status=200)
         # predict disease using predict_disease function
-
+        prediction_result = predict_disease(photo)
         # return prediction result as json response
-        # return JsonResponse({'error': 'false', 'prediction': prediction_result}, status=200)
+        return JsonResponse({'error': 'false', 'prediction': prediction_result}, status=200)
     except ValueError as ve:
         return JsonResponse({'error': 'true', 'message': f"{ERROR_MESSAGES['invalid_input']} {ve}"}, status=400)
     except Exception as e:
