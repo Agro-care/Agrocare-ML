@@ -29,8 +29,8 @@ def predict_disease(photo):
     model = models.resnet18(pretrained=True)
     num_features = model.fc.in_features
     model.fc = nn.Linear(num_features, len(CLASS_NAMES))
-    # model.load_state_dict(torch.load('/root/Agrocare-ML/MLModels/disease_identifier.pth', map_location=device))
-    model.load_state_dict(torch.load('/root/Agrocare-ML/MLModels/disease_identifier.pth'))
+    model.load_state_dict(torch.load('/root/Agrocare-ML/MLModels/disease_identifier.pth', map_location=device))
+    #model.load_state_dict(torch.load('/root/Agrocare-ML/MLModels/disease_identifier.pth'))
     model.to(device)
     model.eval()
 
