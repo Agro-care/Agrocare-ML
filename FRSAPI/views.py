@@ -17,7 +17,7 @@ ERROR_MESSAGES = {
 }
 
 @csrf_exempt
-def predictor(request):
+def fertilizer_recommendation_predict(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
