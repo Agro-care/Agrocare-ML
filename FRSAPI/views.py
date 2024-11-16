@@ -23,7 +23,8 @@ def fertilizer_recommendation_predict(request):
         try:
             data = json.loads(request.body)
             # print(data)
-            dest_language = get_dest(data)
+            dest_language = get_dest(request.body)
+            # print(dest_language)
             recieved = data["data"]
             temp = int(recieved['temperature'])
             soil = recieved["soil"]
@@ -60,6 +61,6 @@ def fertilizer_recommendation_predict(request):
         except ValueError as ve:
             return JsonResponse({'error': 'true', 'message': f"{ERROR_MESSAGES['invalid_input']} {ve}"}, status=400)
         except Exception as e:
-            return JsonResponse({'error':str(e)})
+            return JsonResponse({'error':str(e)+"error"})
 
     return render(request,"main.html")
