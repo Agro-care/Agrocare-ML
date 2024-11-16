@@ -62,5 +62,4 @@ def fertilizer_recommendation_predict(request):
         except Exception as e:
             return JsonResponse({'error':str(e)})
 
-
     return render(request,"main.html")
