@@ -4,6 +4,7 @@ from django.http import JsonResponse
 import pandas as pd
 import json
 from django.views.decorators.csrf import csrf_exempt
+from GoogleTrans.google_translate import translate_text, get_dest
 
 model = load("/root/Agrocare-ML/MLModels/fertilizer.joblib")
 sencoder = load("/root/Agrocare-ML/MLModels/soil_encoder.joblib")
@@ -21,7 +22,9 @@ def fertilizer_recommendation_predict(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            print(data)
+            # print(data)
+            dest_language = get_dest(request.body)
+            # print(dest_language)
             recieved = data["data"]
             temp = int(recieved['temperature'])
             soil = recieved["soil"]
@@ -50,11 +53,14 @@ def fertilizer_recommendation_predict(request):
             prediction = model.predict(inputData)
             # print(prediction)
             result = fencoder.inverse_transform(prediction)[0]
-            return JsonResponse({"Prediction":result})
+            if dest_language is None or dest_language == 'en':
+                translated_result = result
+            else:
+                translated_result = translate_text(result, dest_language)
+            return JsonResponse({"Prediction": translated_result})
         except ValueError as ve:
             return JsonResponse({'error': 'true', 'message': f"{ERROR_MESSAGES['invalid_input']} {ve}"}, status=400)
         except Exception as e:
-            return JsonResponse({'error':str(e)})
-
+            return JsonResponse({'error':str(e)+"error"})
 
     return render(request,"main.html")
