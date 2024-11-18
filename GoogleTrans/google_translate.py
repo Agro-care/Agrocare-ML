@@ -10,6 +10,6 @@ def get_dest(json_data):
     try:
         data = json.loads(json_data)
     except json.JSONDecodeError:
-        raise ValueError("Invalid JSON data.")
-
-    return data['dest']
+        raise ValueError("Invalid JSON data.(translate)")
+    
+    return data.get('dest', 'en')
