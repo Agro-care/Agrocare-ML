@@ -14,3 +14,9 @@
     <li>Fertilizer Recommendation System - Random Forest Classifier</li>
     <li>Crop Disease Identification System - ResNet18 (CNN)</li>
 </ul>
+<h3>Django API</h3>
+<ul>
+  <li>After developing the suitable ML models for the features, integrated the models in with the Django APPs to generate the API links.</li>
+  <li>Through the obtained API links, we devoloped the inter communication between the frontend components and the Model.</li>
+  <li>Giving the appropriate details from the frontend, the django app in the backend will run the model and respond with a prediction or recommendation.</li>
+</ul>
