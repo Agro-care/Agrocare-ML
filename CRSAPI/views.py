@@ -22,6 +22,7 @@ def crop_recommendation_predict(request: HttpResponse) -> JsonResponse:
             return JsonResponse({'error': 'true', 'message': ERROR_MESSAGES['invalid_content_type']}, status=400)
         # convert request.body to dataframe format for prediction
         data = request.body
+        print(data)
         df = create_dataframe(data)
         dest_language = get_dest(data)
         # predict crop using predict_crop function
